@@ -52,6 +52,15 @@ export default function ({ navigation }) {
               onPress={() => Linking.openURL("https://rapi-ui.kikiding.space/")}
             />
             <Button
+              text="Go to Dynamic screen"
+              onPress={() => {
+                navigation.navigate("Dynamic");
+              }}
+              style={{
+                marginTop: 10,
+              }}
+            />
+            <Button
               text="Go to second screen"
               onPress={() => {
                 navigation.navigate("SecondScreen");
