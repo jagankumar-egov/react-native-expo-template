@@ -70,9 +70,9 @@ export default function ({ navigation }) {
           validator={validator}
           onChange={log("changed")}
           onSubmit={(data) => {
-            log(data);
             setData("formdata", data?.formData);
-            log("submitted");
+            log(data,"submitted");
+
           }}
           onError={log("errors")}
         />
