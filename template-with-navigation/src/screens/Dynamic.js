@@ -9,21 +9,24 @@ import {
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
 // import { RJSFSchema } from '@rjsf/utils';
-import validator from '@rjsf/validator-ajv8';
-import Form from '@rjsf/core';
+import validator from "@rjsf/validator-ajv8";
+import Form from "@rjsf/core";
+import {  setData, getData } from "../utils";
 
 const schema = {
-  title: 'Todo',
-  type: 'object',
-  required: ['title'],
+  title: "Todo",
+  type: "object",
+  required: ["title"],
   properties: {
-    title: { type: 'string', title: 'Title', default: 'A new task' },
-    done: { type: 'boolean', title: 'Done?', default: false },
+    title: { type: "string", title: "Title", default: "A new task" },
+    done: { type: "boolean", title: "Done?", default: false },
   },
 };
 
 const log = (type) => console.log.bind(console, type);
+const form = await getData("formdata");
 
+console.log( form);
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   return (
@@ -61,15 +64,23 @@ export default function ({ navigation }) {
           justifyContent: "center",
         }}
       >
-         <Form
-    schema={schema}
-    validator={validator}
-    onChange={log('changed')}
-    onSubmit={log('submitted')}
-    onError={log('errors')}
-  />
+        <Form
+          schema={schema}
+          formData={form}
+          validator={validator}
+          onChange={log("changed")}
+          onSubmit={(data) => {
+            log(data);
+            setData("formdata", data?.formData);
+            log("submitted");
+          }}
+          onError={log("errors")}
+        />
         {/* This text using ubuntu font */}
         <Text fontWeight="bold">This is the Dynamic screen</Text>
+        <Text fontWeight="bold">
+          test
+        </Text>
       </View>
     </Layout>
   );
